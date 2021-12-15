@@ -20,7 +20,10 @@ final class CountriesViewModel: ObservableObject {
         
         Task {
             do {
-                country = try await fetchCountry()
+                let resp = try await fetchCountry()
+                DispatchQueue.main.async {
+                    self.country = resp
+                }
             } catch let err {
                 print(err)
             }
