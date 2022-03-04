@@ -6,20 +6,20 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct CountryView: View {
     
 //    @ObservedObject private var viewModel = CountriesViewModel()
+//    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     var country: Country
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .center) {
+            VStack(alignment: .leading) {
                 AsyncImage(url: URL(string: country.flags.png))
-                Text(country.name.common)
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding(.top)
+//                Map(coordinateRegion: $region)
+//                    .frame(width: 400, height: 300)
                 VStack(alignment: .leading) {
                     HStack {
                         Text("Official Name:")
@@ -32,14 +32,14 @@ struct CountryView: View {
                         Text(country.capital?.first ?? "Not available")
                     }.padding(EdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 0))
                     HStack() {
+                        Text("Continent:")
+                            .fontWeight(.semibold)
+                        Text(country.continents[0])
+                    }.padding(EdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 0))
+                    HStack() {
                         Text("Region:")
                             .fontWeight(.semibold)
                         Text(country.region)
-                    }.padding(EdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 0))
-                    HStack() {
-                        Text("Subregion:")
-                            .fontWeight(.semibold)
-                        Text(country.subregion)
                     }.padding(EdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 0))
                     HStack() {
                         Text("Area:")
@@ -54,7 +54,7 @@ struct CountryView: View {
                     HStack() {
                         Text("Independent:")
                             .fontWeight(.semibold)
-                        Text(country.independent ? "Yes" : "No")
+                        Text(country.independent != nil && country.independent! ? "Yes" : "No")
                     }.padding(EdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 0))
                     HStack() {
                         Text("UN Member:")
@@ -63,6 +63,8 @@ struct CountryView: View {
                     }.padding(EdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 0))
                 }
             }
+            .navigationTitle(country.name.common)
+            .padding(.vertical, 25)
         }
     }
 }

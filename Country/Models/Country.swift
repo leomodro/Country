@@ -10,21 +10,21 @@ import UIKit
 struct Country: Codable {
     var cca2: String
     var name: CountryName
-    var tld: [String]
-    var independent: Bool
+    var tld: [String]?
+    var independent: Bool?
     var status: String
     var unMember: Bool
 //    var currencies
     var capital: [String]?
     var altSpellings: [String]
     var region: String
-    var subregion: String
+    var subregion: String?
 //    var languages
     var translations: Translations
     var latlng: [Double]
     var area: Double
-    var demonyms: Demonyms
-    var flag: String
+    var demonyms: Demonyms?
+    var flag: String?
     var population: Int
     var fifa: String?
     var timezones: [String]
@@ -40,7 +40,7 @@ struct Country: Codable {
     struct Translations: Codable {
         var ara: TranslationDetail
         var fra: TranslationDetail
-        var jpn: TranslationDetail
+//        var jpn: TranslationDetail
         var por: TranslationDetail
         var rus: TranslationDetail
         var spa: TranslationDetail

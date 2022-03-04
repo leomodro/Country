@@ -27,7 +27,7 @@ final class ListCountryViewModel: ObservableObject {
     }
     
     public func fetchCountries() async throws -> [Country] {
-        guard let url = URL(string: "https://restcountries.com/v3.1/subregion/america") else { throw FetchError.invalidURL }
+        guard let url = URL(string: "https://restcountries.com/v3.1/all") else { throw FetchError.invalidURL }
         let (data, _) = try await URLSession.shared.data(from: url)
         let resp = try JSONDecoder().decode([Country].self, from: data)
         return resp
