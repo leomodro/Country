@@ -32,6 +32,17 @@ struct CountryView: View {
                         Text(country.capital?.first ?? "Not available")
                     }.padding(EdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 0))
                     HStack() {
+                        Text("Currency:")
+                            .fontWeight(.semibold)
+                        if let currency = country.currencies {
+                            let symbol = currency.values[0].symbol
+                            let name = currency.values[0].name
+                            Text(symbol + " - " + name)
+                        } else {
+                            Text("Not available")
+                        }
+                    }.padding(EdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 0))
+                    HStack() {
                         Text("Continent:")
                             .fontWeight(.semibold)
                         Text(country.continents[0])

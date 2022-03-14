@@ -14,7 +14,7 @@ struct Country: Codable {
     var independent: Bool?
     var status: String
     var unMember: Bool
-//    var currencies
+    var currencies: CurrencyList.List?
     var capital: [String]?
     var altSpellings: [String]
     var region: String
@@ -73,4 +73,33 @@ struct Country: Codable {
 
 extension Country: Identifiable {
     var id: String { return cca2 }
+}
+
+//MARK: - Currency
+//struct Currency: Codable {
+//    var value: String
+//}
+
+struct CurrencyList: Codable {
+    var code: String
+    var symbol: String
+    var name: String
+}
+
+extension CurrencyList {
+    struct List: Codable {
+        let values: [CurrencyList]
+
+        init(from decoder: Decoder) throws {
+//            let container = try decoder.container(keyedBy: CodingKeys.self)
+            let container = try decoder.singleValueContainer()
+            let dictionary = try container.decode([String : [String: String]].self)
+
+            values = dictionary.map { key, value in
+                let symbol = value["symbol"] ?? ""
+                let name = value["name"] ?? ""
+                return CurrencyList(code: key, symbol: symbol, name: name)
+            }
+        }
+    }
 }

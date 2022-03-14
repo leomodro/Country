@@ -15,7 +15,13 @@ struct ListCountriesView: View {
         if searchText.isEmpty {
             return viewModel.countries
         } else {
-            return viewModel.countries.filter({ $0.name.common.localizedCaseInsensitiveContains(searchText) })
+            return viewModel.countries.filter { item in
+                if item.name.common.localizedCaseInsensitiveContains(searchText) || (item.capital != nil && item.capital!.first!.localizedCaseInsensitiveContains(searchText)) {
+                    return true
+                }
+                return false
+            }
+//            return viewModel.countries.filter({ $0.name.common.localizedCaseInsensitiveContains(searchText) })
         }
     }
     
@@ -44,7 +50,7 @@ struct ListCountriesView: View {
                     }.padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
                 }
             }
-            .searchable(text: $searchText, prompt: "Search")
+            .searchable(text: $searchText, prompt: "Search for country or capital")
             .navigationTitle("Countries")
         }
         .navigationViewStyle(StackNavigationViewStyle())
