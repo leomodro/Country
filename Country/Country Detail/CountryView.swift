@@ -9,17 +9,12 @@ import SwiftUI
 import MapKit
 
 struct CountryView: View {
-    
-//    @ObservedObject private var viewModel = CountriesViewModel()
-//    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     var country: Country
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
                 AsyncImage(url: URL(string: country.flags.png))
-//                Map(coordinateRegion: $region)
-//                    .frame(width: 400, height: 300)
                 VStack(alignment: .leading) {
                     HStack {
                         Text("Official Name:")
@@ -89,8 +84,10 @@ extension Double {
     }
 }
 
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CountryView()
-//    }
-//}
+//MARK: - Previews
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        CountryView(country: Country.generateCountry())
+        CountryView(country: Country.generateCountry()).preferredColorScheme(.dark)
+    }
+}

@@ -19,7 +19,6 @@ struct Country: Codable {
     var altSpellings: [String]
     var region: String
     var subregion: String?
-//    var languages
     var translations: Translations
     var latlng: [Double]
     var area: Double
@@ -40,7 +39,6 @@ struct Country: Codable {
     struct Translations: Codable {
         var ara: TranslationDetail
         var fra: TranslationDetail
-//        var jpn: TranslationDetail
         var por: TranslationDetail
         var rus: TranslationDetail
         var spa: TranslationDetail
@@ -75,11 +73,14 @@ extension Country: Identifiable {
     var id: String { return cca2 }
 }
 
-//MARK: - Currency
-//struct Currency: Codable {
-//    var value: String
-//}
+//MARK: - Generate data
+extension Country {
+    static func generateCountry() -> Country {
+        return Country(cca2: "BR", name: CountryName(common: "Brazil", official: "Federative Republic of Brazil"), tld: [".br"], independent: true, status: "officially-assigned", unMember: true, currencies: nil, capital: ["Brasília"], altSpellings: ["BR", "Brasil"], region: "Americas", subregion: "South America", translations: Translations(ara: Translations.TranslationDetail(official: "", common: ""), fra: Translations.TranslationDetail(official: "", common: ""), por: Translations.TranslationDetail(official: "", common: ""), rus: Translations.TranslationDetail(official: "", common: ""), spa: Translations.TranslationDetail(official: "", common: "")), latlng: [-10.0, -55.0], area: 8515767.0, demonyms: Demonyms(eng: Demonyms.DemonymsLanguage(f: "Brazilian", m: "Brazilian")), flag: "🇧🇷", population: 212559409, fifa: "BRA", timezones: ["UTC-05:00"], continents: ["South America"], flags: CountryFlag(png: "https://flagcdn.com/w320/br.png", svg: "https://flagcdn.com/br.svg"), coatOfArms: CountryArms(png: "https://mainfacts.com/media/images/coats_of_arms/br.png", svg: ""))
+    }
+}
 
+//MARK: - Currency
 struct CurrencyList: Codable {
     var code: String
     var symbol: String
@@ -91,7 +92,6 @@ extension CurrencyList {
         let values: [CurrencyList]
 
         init(from decoder: Decoder) throws {
-//            let container = try decoder.container(keyedBy: CodingKeys.self)
             let container = try decoder.singleValueContainer()
             let dictionary = try container.decode([String : [String: String]].self)
 

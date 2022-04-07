@@ -21,7 +21,6 @@ struct ListCountriesView: View {
                 }
                 return false
             }
-//            return viewModel.countries.filter({ $0.name.common.localizedCaseInsensitiveContains(searchText) })
         }
     }
     
@@ -30,19 +29,6 @@ struct ListCountriesView: View {
             List(searchedCountries) { country in
                 NavigationLink(destination: CountryView(country: country)) {
                     HStack {
-//                        AsyncImage(
-//                            url: URL(string: country.flags.png),
-//                            content: { image in
-//                                image
-//                                    .resizable()
-//                                    .cornerRadius(25)
-//                                    .frame(maxWidth: 50, maxHeight: 50)
-////                                    .aspectRatio(contentMode: .fill)
-//                            },
-//                            placeholder: {
-//                                ProgressView()
-//                            }
-//                        )
                         Text(country.flag ?? "")
                             .font(.largeTitle)
                         Text(country.name.common)
