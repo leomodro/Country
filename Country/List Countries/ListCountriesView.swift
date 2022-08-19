@@ -28,11 +28,16 @@ struct ListCountriesView: View {
         NavigationView {
             List(searchedCountries) { country in
                 NavigationLink(destination: CountryView(country: country)) {
-                    HStack {
+                    HStack(spacing: 10) {
                         Text(country.flag ?? "")
                             .font(.largeTitle)
-                        Text(country.name.common)
-                            .font(.headline)
+                        VStack(alignment: .leading, spacing: 3) {
+                            Text(country.name.common)
+                                .font(.headline)
+                            Text(country.capital?.first ?? "Capital unavailable")
+                                .font(.subheadline)
+                                .foregroundColor(Color.secondary)
+                        }
                     }.padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
                 }
             }
