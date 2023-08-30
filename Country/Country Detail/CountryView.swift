@@ -8,6 +8,11 @@
 import SwiftUI
 import MapKit
 
+struct Coordinate: Identifiable {
+    let id = UUID()
+    let coordinate: CLLocationCoordinate2D
+}
+
 struct CountryView: View {
     var country: Country
     
@@ -68,9 +73,18 @@ struct CountryView: View {
                         Text(country.unMember ? "Yes" : "No")
                     }.padding(EdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 0))
                 }
+                
+                let item = [Coordinate(coordinate: CLLocationCoordinate2D(latitude: country.latlng[0], longitude: country.latlng[1]))]
+                Map(coordinateRegion: .constant(MKCoordinateRegion(center: item[0].coordinate, span: MKCoordinateSpan(latitudeDelta: 5, longitudeDelta: 5))), annotationItems: item) { annotation in
+                    MapPin(coordinate: annotation.coordinate)
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .frame(width: .infinity, height: 300, alignment: .center)
+                .padding(.top, 16)
             }
             .navigationTitle(country.name.common)
             .padding(.vertical, 25)
+            .padding(.horizontal, 16)
         }
     }
 }
@@ -85,9 +99,10 @@ extension Double {
 }
 
 //MARK: - Previews
-struct ContentView_Previews: PreviewProvider {
+struct CountryView_Previews: PreviewProvider {
     static var previews: some View {
-        CountryView(country: Country.generateCountry())
-        CountryView(country: Country.generateCountry()).preferredColorScheme(.dark)
+        CountryView(country: randomCountry)
+        CountryView(country: randomCountry)
+            .preferredColorScheme(.dark)
     }
 }

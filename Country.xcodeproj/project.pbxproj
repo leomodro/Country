@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		679B5AA82A9FBA7A007CE844 /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 679B5AA72A9FBA7A007CE844 /* countries.json */; };
+		679B5AAB2A9FBAC3007CE844 /* JSONLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679B5AAA2A9FBAC3007CE844 /* JSONLoader.swift */; };
+		679B5AAE2A9FBAFC007CE844 /* PreviewProvider+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679B5AAD2A9FBAFC007CE844 /* PreviewProvider+Additions.swift */; };
 		8D510B162768FB7100A9A939 /* CountryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D510B152768FB7100A9A939 /* CountryApp.swift */; };
 		8D510B182768FB7100A9A939 /* CountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D510B172768FB7100A9A939 /* CountryView.swift */; };
 		8D510B1A2768FB7300A9A939 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D510B192768FB7300A9A939 /* Assets.xcassets */; };
@@ -31,6 +34,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		679B5AA72A9FBA7A007CE844 /* countries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = countries.json; sourceTree = "<group>"; };
+		679B5AAA2A9FBAC3007CE844 /* JSONLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONLoader.swift; sourceTree = "<group>"; };
+		679B5AAD2A9FBAFC007CE844 /* PreviewProvider+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PreviewProvider+Additions.swift"; sourceTree = "<group>"; };
 		8D510B122768FB7100A9A939 /* Country.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Country.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D510B152768FB7100A9A939 /* CountryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryApp.swift; sourceTree = "<group>"; };
 		8D510B172768FB7100A9A939 /* CountryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryView.swift; sourceTree = "<group>"; };
@@ -53,6 +59,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		679B5AA92A9FBA88007CE844 /* JSONs */ = {
+			isa = PBXGroup;
+			children = (
+				679B5AA72A9FBA7A007CE844 /* countries.json */,
+				679B5AAA2A9FBAC3007CE844 /* JSONLoader.swift */,
+			);
+			path = JSONs;
+			sourceTree = "<group>";
+		};
+		679B5AAC2A9FBAEF007CE844 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				679B5AAD2A9FBAFC007CE844 /* PreviewProvider+Additions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		8D510B092768FB7100A9A939 = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +96,8 @@
 		8D510B142768FB7100A9A939 /* Country */ = {
 			isa = PBXGroup;
 			children = (
+				679B5AAC2A9FBAEF007CE844 /* Extensions */,
+				679B5AA92A9FBA88007CE844 /* JSONs */,
 				8DBE0D4227691A8100636584 /* Models */,
 				8DBE0D4327691A9000636584 /* Country Detail */,
 				8DBE0D4427691AA100636584 /* List Countries */,
@@ -183,6 +208,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				679B5AA82A9FBA7A007CE844 /* countries.json in Resources */,
 				8D510B1D2768FB7300A9A939 /* Preview Assets.xcassets in Resources */,
 				8D510B1A2768FB7300A9A939 /* Assets.xcassets in Resources */,
 			);
@@ -196,11 +222,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D510B182768FB7100A9A939 /* CountryView.swift in Sources */,
+				679B5AAE2A9FBAFC007CE844 /* PreviewProvider+Additions.swift in Sources */,
 				8D510B252768FB9200A9A939 /* Country.swift in Sources */,
 				8DBE0D4627691AE300636584 /* ListCountriesView.swift in Sources */,
 				8D510B162768FB7100A9A939 /* CountryApp.swift in Sources */,
 				8D510B262768FB9200A9A939 /* CountriesViewModel.swift in Sources */,
 				8DBE0D4827691B0600636584 /* ListCountriesViewModel.swift in Sources */,
+				679B5AAB2A9FBAC3007CE844 /* JSONLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
