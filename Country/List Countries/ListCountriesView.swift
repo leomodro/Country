@@ -27,7 +27,7 @@ struct ListCountriesView: View {
     var body: some View {
         NavigationView {
             List(searchedCountries) { country in
-                NavigationLink(destination: CountryView(country: country)) {
+                NavigationLink(destination: CountryView(viewModel: CountriesViewModel(country: country))) {
                     HStack(spacing: 10) {
                         Text(country.flag ?? "")
                             .font(.largeTitle)

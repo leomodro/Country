@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+enum FetchError: Error {
+    case invalidURL
+    case missingData
+}
+
 final class ListCountryViewModel: ObservableObject {
     
     @Published var countries: [Country] = []

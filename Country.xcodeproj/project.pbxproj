@@ -10,6 +10,7 @@
 		679B5AA82A9FBA7A007CE844 /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 679B5AA72A9FBA7A007CE844 /* countries.json */; };
 		679B5AAB2A9FBAC3007CE844 /* JSONLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679B5AAA2A9FBAC3007CE844 /* JSONLoader.swift */; };
 		679B5AAE2A9FBAFC007CE844 /* PreviewProvider+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679B5AAD2A9FBAFC007CE844 /* PreviewProvider+Additions.swift */; };
+		679B5AB02A9FC452007CE844 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679B5AAF2A9FC452007CE844 /* Double.swift */; };
 		8D510B162768FB7100A9A939 /* CountryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D510B152768FB7100A9A939 /* CountryApp.swift */; };
 		8D510B182768FB7100A9A939 /* CountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D510B172768FB7100A9A939 /* CountryView.swift */; };
 		8D510B1A2768FB7300A9A939 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D510B192768FB7300A9A939 /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 		679B5AA72A9FBA7A007CE844 /* countries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = countries.json; sourceTree = "<group>"; };
 		679B5AAA2A9FBAC3007CE844 /* JSONLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONLoader.swift; sourceTree = "<group>"; };
 		679B5AAD2A9FBAFC007CE844 /* PreviewProvider+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PreviewProvider+Additions.swift"; sourceTree = "<group>"; };
+		679B5AAF2A9FC452007CE844 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		8D510B122768FB7100A9A939 /* Country.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Country.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D510B152768FB7100A9A939 /* CountryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryApp.swift; sourceTree = "<group>"; };
 		8D510B172768FB7100A9A939 /* CountryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryView.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				679B5AAD2A9FBAFC007CE844 /* PreviewProvider+Additions.swift */,
+				679B5AAF2A9FC452007CE844 /* Double.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				8D510B162768FB7100A9A939 /* CountryApp.swift in Sources */,
 				8D510B262768FB9200A9A939 /* CountriesViewModel.swift in Sources */,
 				8DBE0D4827691B0600636584 /* ListCountriesViewModel.swift in Sources */,
+				679B5AB02A9FC452007CE844 /* Double.swift in Sources */,
 				679B5AAB2A9FBAC3007CE844 /* JSONLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

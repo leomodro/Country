@@ -6,36 +6,70 @@
 //
 
 import SwiftUI
-
-enum FetchError: Error {
-    case invalidURL
-    case missingData
-}
+import CoreLocation
 
 final class CountriesViewModel: ObservableObject {
     
-    @Published var country: Country!
+    let country: Country
     
-    init() {
-        
-        Task {
-            do {
-                let resp = try await fetchCountry()
-                DispatchQueue.main.async {
-                    self.country = resp
-                }
-            } catch let err {
-                print(err)
-            }
-        }
-        
+    // MARK: - Computed variables
+    var capital: String {
+        country.capital?.first ?? "Not available"
     }
     
-    public func fetchCountry() async throws -> Country {
-        guard let url = URL(string: "https://restcountries.com/v3.1/name/brazil") else { throw FetchError.invalidURL }
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let resp = try JSONDecoder().decode([Country].self, from: data)
-        return resp.first!
+    var currency: String {
+        if let currency = country.currencies {
+            let symbol = currency.values[0].symbol
+            let name = currency.values[0].name
+            return symbol + " - " + name
+        }
+        return "Not available"
+    }
+    
+    var continent: String {
+        country.continents[0]
+    }
+    
+    var area: String {
+        country.area.countryAreaFormat() + " km²"
+    }
+    
+    var independent: String {
+        country.independent != nil && country.independent! ? "Yes" : "No"
+    }
+    
+    var unMember: String {
+        country.unMember ? "Yes" : "No"
+    }
+    
+    var idd: String {
+        country.idd.root ?? "Not available"
+    }
+    
+    var langagues: String {
+        if let lang = country.languages {
+            return lang.values
+                .map { $0.name }
+                .joined(separator: ", ")
+        }
+        return ""
+    }
+    
+    var timezones: String {
+        return country.timezones.joined(separator: ", ")
+    }
+    
+    var countryCoordinates: Coordinate {
+        let lat = country.latlng[0]
+        let lon = country.latlng[1]
+        return Coordinate(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon))
+    }
+    
+    // MARK: - Published variables
+    
+    // MARK: - Init
+    init(country: Country) {
+        self.country = country
     }
     
 }

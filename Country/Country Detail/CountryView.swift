@@ -8,101 +8,90 @@
 import SwiftUI
 import MapKit
 
-struct Coordinate: Identifiable {
-    let id = UUID()
-    let coordinate: CLLocationCoordinate2D
-}
-
 struct CountryView: View {
-    var country: Country
+    @ObservedObject var viewModel: CountriesViewModel
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                AsyncImage(url: URL(string: country.flags.png))
+                countryFlag
+                
                 VStack(alignment: .leading) {
-                    HStack {
-                        Text("Official Name:")
-                            .fontWeight(.semibold)
-                        Text(country.name.official)
-                    }.padding(EdgeInsets(top: 30, leading: 0, bottom: 0, trailing: 0))
-                    HStack() {
-                        Text("Capital:")
-                            .fontWeight(.semibold)
-                        Text(country.capital?.first ?? "Not available")
-                    }.padding(EdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 0))
-                    HStack() {
-                        Text("Currency:")
-                            .fontWeight(.semibold)
-                        if let currency = country.currencies {
-                            let symbol = currency.values[0].symbol
-                            let name = currency.values[0].name
-                            Text(symbol + " - " + name)
-                        } else {
-                            Text("Not available")
-                        }
-                    }.padding(EdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 0))
-                    HStack() {
-                        Text("Continent:")
-                            .fontWeight(.semibold)
-                        Text(country.continents[0])
-                    }.padding(EdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 0))
-                    HStack() {
-                        Text("Region:")
-                            .fontWeight(.semibold)
-                        Text(country.region)
-                    }.padding(EdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 0))
-                    HStack() {
-                        Text("Area:")
-                            .fontWeight(.semibold)
-                        Text(country.area.countryAreaFormat() + " km²")
-                    }.padding(EdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 0))
-                    HStack() {
-                        Text("Population:")
-                            .fontWeight(.semibold)
-                        Text("\(country.population)")
-                    }.padding(EdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 0))
-                    HStack() {
-                        Text("Independent:")
-                            .fontWeight(.semibold)
-                        Text(country.independent != nil && country.independent! ? "Yes" : "No")
-                    }.padding(EdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 0))
-                    HStack() {
-                        Text("UN Member:")
-                            .fontWeight(.semibold)
-                        Text(country.unMember ? "Yes" : "No")
-                    }.padding(EdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 0))
+                    Group {
+                        countryInfo(title: "Official Name:", subtitle: viewModel.country.name.official)
+                        countryInfo(title: "Capital:", subtitle: viewModel.capital)
+                        countryInfo(title: "Currency:", subtitle: viewModel.currency)
+                        countryInfo(title: "Continent:", subtitle: viewModel.continent)
+                        countryInfo(title: "Region:", subtitle: viewModel.country.region)
+                    }
+                    
+                    Group {
+                        countryInfo(title: "Area:", subtitle: viewModel.area)
+                        countryInfo(title: "Population:", subtitle: "\(viewModel.country.population.formatted(.number))")
+                        countryInfo(title: "Languages:", subtitle: viewModel.langagues)
+                    }
+                    
+                    Group {
+                        countryInfo(title: "Independent:", subtitle: viewModel.independent)
+                        countryInfo(title: "UN Member:", subtitle: viewModel.unMember)
+                        countryInfo(title: "IDD:", subtitle: viewModel.idd)
+                        countryInfo(title: "Timezones:", subtitle: viewModel.timezones)
+                    }
                 }
                 
-                let item = [Coordinate(coordinate: CLLocationCoordinate2D(latitude: country.latlng[0], longitude: country.latlng[1]))]
-                Map(coordinateRegion: .constant(MKCoordinateRegion(center: item[0].coordinate, span: MKCoordinateSpan(latitudeDelta: 5, longitudeDelta: 5))), annotationItems: item) { annotation in
-                    MapPin(coordinate: annotation.coordinate)
-                }
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-                .frame(width: .infinity, height: 300, alignment: .center)
-                .padding(.top, 16)
+                mapView
             }
-            .navigationTitle(country.name.common)
+            .navigationTitle(viewModel.country.name.common)
             .padding(.vertical, 25)
             .padding(.horizontal, 16)
         }
     }
 }
 
-extension Double {
-    func countryAreaFormat() -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 2
-        return formatter.string(from: NSNumber(value: self)) ?? "Not available"
+// MARK: - View components
+extension CountryView {
+    var countryFlag: some View {
+        AsyncImage(url: URL(string: viewModel.country.flags.png)) { image in
+            image
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(minWidth: 0, maxWidth: .infinity)
+                .cornerRadius(24)
+                .padding(.bottom, 16)
+        } placeholder: {
+            ProgressView()
+                .frame(minWidth: 0, maxWidth: .infinity)
+        }
+    }
+    
+    @ViewBuilder
+    func countryInfo(title: String, subtitle: String) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(title)
+                .fontWeight(.medium)
+                .foregroundColor(.gray)
+            Text(subtitle)
+                .font(.title3)
+                .fontWeight(.semibold)
+        }
+        .padding(EdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 0))
+    }
+    
+    var mapView: some View {
+        Map(coordinateRegion: .constant(MKCoordinateRegion(center: viewModel.countryCoordinates.coordinate, span: MKCoordinateSpan(latitudeDelta: 5, longitudeDelta: 5))), annotationItems: [viewModel.countryCoordinates]) { annotation in
+            MapPin(coordinate: annotation.coordinate)
+        }
+        .cornerRadius(24)
+        .frame(height: 300, alignment: .center)
+        .padding(.top, 16)
     }
 }
 
 //MARK: - Previews
 struct CountryView_Previews: PreviewProvider {
     static var previews: some View {
-        CountryView(country: randomCountry)
-        CountryView(country: randomCountry)
+        CountryView(viewModel: CountriesViewModel(country: randomCountry))
+        CountryView(viewModel: CountriesViewModel(country: randomCountry))
             .preferredColorScheme(.dark)
     }
 }

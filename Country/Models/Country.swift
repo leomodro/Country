@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 struct Country: Codable {
     var cca2: String
@@ -60,6 +61,11 @@ struct Country: Codable {
 
 extension Country: Identifiable {
     var id: String { return cca2 }
+}
+
+struct Coordinate: Identifiable {
+    let id = UUID()
+    let coordinate: CLLocationCoordinate2D
 }
 
 //MARK: - Currency
