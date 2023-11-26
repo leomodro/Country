@@ -7,35 +7,44 @@
 
 import SwiftUI
 
-enum FetchError: Error {
-    case invalidURL
-    case missingData
-}
-
+@MainActor
 final class ListCountryViewModel: ObservableObject {
     
     @Published var countries: [Country] = []
+    @Published var searchText = ""
+    @Published var searchedCountries: [Country] = []
     
-    init() {
-        
-        Task {
-            do {
-                let resp = try await fetchCountries()
-                DispatchQueue.main.async {
-                    self.countries = resp.sorted(by: { $0.name.common < $1.name.common })
-                }
-            } catch let err {
-                print(err)
+    init() { }
+    
+    public func fetchCountries() async {
+        guard let url = URL(string: "https://restcountries.com/v3.1/all") else { return }
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let resp = try JSONDecoder().decode([Country].self, from: data)
+            handleResponseData(resp)
+        } catch {
+            if let resp: [Country] = try? JSONLoader().load(.countries) {
+                handleResponseData(resp)
             }
         }
-        
     }
     
-    public func fetchCountries() async throws -> [Country] {
-        guard let url = URL(string: "https://restcountries.com/v3.1/all") else { throw FetchError.invalidURL }
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let resp = try JSONDecoder().decode([Country].self, from: data)
-        return resp
+    private func handleResponseData(_ resp: [Country]) {
+        self.countries = resp.sorted(by: { $0.name.common < $1.name.common })
+        performSearch()
+    }
+    
+    func performSearch() {
+        if searchText.isEmpty {
+            self.searchedCountries = countries
+        } else {
+            self.searchedCountries = countries.filter { item in
+                if item.name.common.localizedCaseInsensitiveContains(searchText) || (item.capital != nil && item.capital!.first!.localizedCaseInsensitiveContains(searchText)) {
+                    return true
+                }
+                return false
+            }
+        }
     }
     
 }

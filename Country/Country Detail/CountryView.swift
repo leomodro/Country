@@ -69,7 +69,7 @@ extension CountryView {
         VStack(alignment: .leading, spacing: 4) {
             Text(title)
                 .fontWeight(.medium)
-                .foregroundColor(.gray)
+                .foregroundStyle(.secondary)
             Text(subtitle)
                 .font(.title3)
                 .fontWeight(.semibold)

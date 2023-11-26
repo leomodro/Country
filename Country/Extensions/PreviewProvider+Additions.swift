@@ -8,13 +8,6 @@
 import SwiftUI
 
 extension PreviewProvider {
-    
-//#if DEBUG
-    
-//    static var fipeValueViewModel: FipeValueViewModel {
-//        FipeValueViewModel(fipeService, dataStoreManager: dataStoreManager, fipeValue: fipeValue)
-//    }
-    
     static var countries: [Country] {
         do {
             let response: [Country]? = try JSONLoader().load(.countries)
@@ -35,5 +28,4 @@ extension PreviewProvider {
             fatalError("Failed loading json data \(error)")
         }
     }
-//#endif
 }
