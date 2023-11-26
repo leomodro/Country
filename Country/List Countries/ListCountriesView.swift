@@ -25,7 +25,8 @@ struct ListCountriesView: View {
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }
-                    }.padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+                    }
+                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
                 }
             }
             .searchable(text: $viewModel.searchText, prompt: "Search for country or capital")

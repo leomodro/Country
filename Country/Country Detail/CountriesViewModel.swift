@@ -65,8 +65,6 @@ final class CountriesViewModel: ObservableObject {
         return Coordinate(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon))
     }
     
-    // MARK: - Published variables
-    
     // MARK: - Init
     init(country: Country) {
         self.country = country
